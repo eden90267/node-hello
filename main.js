@@ -1,10 +1,21 @@
-console.log('hello');
 var http = require('http');
+var url = require('url');
+
+var foo = function() {
+	console.log('foo');
+};
+
+var hello = function() {
+	console.log('hello');
+};
 
 var server = http.createServer(function(req, res) {
-	res.setHeader('Content-Type', 'text/html');
-	
-	res.write('<h1>hello world</h1>');
+	var pathname = url.parse(req.url).pathname;
+	if (pathname === '/') {
+		foo();
+	} else if (pathname === '/hello') {
+		hello();
+	}
 	res.end();
 });
 
